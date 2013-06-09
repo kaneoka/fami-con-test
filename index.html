@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head><title>Web Socket Test</title></head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script>
+$(function(){
+
+  var socket = io.connect('http://localhost');
+
+  socket.on('message', function(data){
+    $('#msgArea').append("<div>" + data + "</div>");
+  });
+
+  socket.on('operation', function(data){
+    $('#msgArea').append("<div> operation : " + data + "</div>");
+  });
+
+  $("#send").on("click", function(){
+    var message = $("#msg").val();
+    socket.emit("message", message);
+    msg.val("");
+  });
+});
+
+</script>
+<body>
+<h1>Web Socket Test</h1>
+<input type="text" id="msg" placeholder="message here" />
+<button id="send">Send</button>
+<div id="msgArea"><div>
+</body>
+</html>
